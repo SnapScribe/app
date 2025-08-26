@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Platform } from "react-native";
 import Purchases, { LOG_LEVEL } from "react-native-purchases";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
@@ -15,7 +22,11 @@ const BillingContext = createContext<BillingContextProps>(
   {} as BillingContextProps,
 );
 
-export const BillingContextProvider = ({ children }: any) => {
+export const BillingContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isAnonymous, setIsAnonymous] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [subscriptionActive, setSubscriptionActive] = useState(false);
@@ -31,10 +42,10 @@ export const BillingContextProvider = ({ children }: any) => {
     );
   };
 
-  const checkPaywall = async () => {
+  const checkPaywall = useCallback(async () => {
     try {
       const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
-        requiredEntitlementIdentifier: "pro",
+        requiredEntitlementIdentifier: Config.ENTITLEMENT_ID,
       });
 
       if (
@@ -49,7 +60,7 @@ export const BillingContextProvider = ({ children }: any) => {
     }
 
     return false;
-  };
+  }, []);
 
   useEffect(() => {
     // Get user details when component first mounts
@@ -81,7 +92,7 @@ export const BillingContextProvider = ({ children }: any) => {
       subscriptionActive,
       checkPaywall,
     };
-  }, [isAnonymous, userId, subscriptionActive, checkPaywall]);
+  }, [isAnonymous, userId, subscriptionActive]);
 
   return (
     <BillingContext.Provider value={value}>{children}</BillingContext.Provider>
