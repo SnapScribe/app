@@ -1,8 +1,8 @@
-import { Center } from "../ui/center";
-import { Link } from "../ui/link";
-import { Text } from "../ui/text";
-import { View } from "../ui/view";
-import { VStack } from "../ui/vstack";
+import { Center } from '../ui/center';
+import { Link } from '../ui/link';
+import { Text } from '../ui/text';
+import { View } from '../ui/view';
+import { VStack } from '../ui/vstack';
 
 interface IErrorPage {
   error: string;

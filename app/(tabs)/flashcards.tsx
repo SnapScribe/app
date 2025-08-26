@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { Dimensions, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useEffect, useMemo, useState } from 'react';
+import { Dimensions, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -8,18 +8,18 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from "react-native-reanimated";
-import { Header } from "@/components/shared/Header";
-import PageWrapper from "@/components/shared/PageWrapper";
-import { useData } from "@/contexts/DataContext";
-import { FlashCard } from "@/types";
-import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
-import GameCard from "@/components/screens/games/GameCard";
-import { Center } from "@/components/ui/center";
-import { Text } from "@/components/ui/text";
-import { Grid, GridItem } from "@/components/ui/grid";
+} from 'react-native-reanimated';
+import { Header } from '@/components/shared/Header';
+import PageWrapper from '@/components/shared/PageWrapper';
+import { useData } from '@/contexts/DataContext';
+import { FlashCard } from '@/types';
+import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
+import GameCard from '@/components/screens/games/GameCard';
+import { Center } from '@/components/ui/center';
+import { Text } from '@/components/ui/text';
+import { Grid, GridItem } from '@/components/ui/grid';
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
 const OFFSCREEN = SCREEN_WIDTH * 1.2;
 
@@ -30,12 +30,9 @@ const Flashcards = () => {
   const x = useSharedValue(0);
   const toast = useToast();
 
-  const showAlert = (
-    severity: "success" | "error" | "info",
-    title: string,
-  ) => {
+  const showAlert = (severity: 'success' | 'error' | 'info', title: string) => {
     toast.show({
-      placement: "bottom right",
+      placement: 'bottom right',
       duration: 500,
       render: ({ id }) => {
         return (
@@ -48,8 +45,7 @@ const Flashcards = () => {
   };
 
   useEffect(() => {
-    const allWordsSeen =
-      filteredWords.length > 0 && filteredWords.length - 1 === seen.length;
+    const allWordsSeen = filteredWords.length > 0 && filteredWords.length - 1 === seen.length;
     if (allWordsSeen) {
       setSeen([]);
     }
@@ -117,13 +113,13 @@ const Flashcards = () => {
               if (dir === -1) {
                 // guess 1 is right
                 if (currentCard.word === currentCard.guess2)
-                  runOnJS(showAlert)("error", "Wrong answer");
-                else runOnJS(showAlert)("success", "Correct answer!");
+                  runOnJS(showAlert)('error', 'Wrong answer');
+                else runOnJS(showAlert)('success', 'Correct answer!');
               } else {
                 // guess 2 is right
                 if (currentCard.word === currentCard.guess1)
-                  runOnJS(showAlert)("error", "Wrong answer");
-                else runOnJS(showAlert)("success", "Correct answer!");
+                  runOnJS(showAlert)('error', 'Wrong answer');
+                else runOnJS(showAlert)('success', 'Correct answer!');
               }
             }
           }
@@ -150,11 +146,7 @@ const Flashcards = () => {
     <PageWrapper>
       <Header title="Flashcards" />
       <Center className="mt-4">
-        {showGuidance && (
-          <Text className="text-center mb-2">
-            Swipe left or right to answer
-          </Text>
-        )}
+        {showGuidance && <Text className="text-center mb-2">Swipe left or right to answer</Text>}
         <Text className="text-center mb-4">
           {seen.length}/{filteredWords.length} cards
         </Text>
@@ -164,15 +156,13 @@ const Flashcards = () => {
           <Grid
             className="gap-2"
             _extra={{
-              className: "grid-cols-12",
-            }}
-          >
+              className: 'grid-cols-12',
+            }}>
             <GridItem
               className="p-1 rounded-md"
               _extra={{
-                className: "col-span-12",
-              }}
-            >
+                className: 'col-span-12',
+              }}>
               {currentCard && (
                 <Animated.View style={cardStyle}>
                   <GameCard currentCard={currentCard} />

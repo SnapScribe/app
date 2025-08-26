@@ -1,20 +1,8 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { Category, Word, Language } from "@/types";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  getCategories,
-  getSupportedLanguages,
-  getWords,
-  identifyWord,
-} from "@/data/server";
-import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { Category, Word, Language } from '@/types';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getCategories, getSupportedLanguages, getWords, identifyWord } from '@/data/server';
+import { Toast, ToastTitle, useToast } from '@/components/ui/toast';
 
 interface DataContextProps {
   supportedLanguages: Language[];
@@ -30,11 +18,7 @@ interface DataContextProps {
 
 const DataContext = createContext<DataContextProps | undefined>(undefined);
 
-export const DataContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const DataContextProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
 
   const {
@@ -42,7 +26,7 @@ export const DataContextProvider = ({
     isLoading: supportedLanguagesLoading,
     error: supportedLanguagesError,
   } = useQuery<Language[], Error>({
-    queryKey: ["supportedLanguages"],
+    queryKey: ['supportedLanguages'],
     queryFn: getSupportedLanguages,
     staleTime: 24 * 60 * 60_000,
     refetchOnWindowFocus: false,
@@ -53,7 +37,7 @@ export const DataContextProvider = ({
     isLoading: categoriesLoading,
     error: categoriesError,
   } = useQuery<Category[], Error>({
-    queryKey: ["categories"],
+    queryKey: ['categories'],
     queryFn: getCategories,
     staleTime: 24 * 60 * 60_000,
     refetchOnWindowFocus: false,
@@ -64,24 +48,22 @@ export const DataContextProvider = ({
     isLoading: wordsLoading,
     error: wordsError,
   } = useQuery<Word[], Error>({
-    queryKey: ["words"],
+    queryKey: ['words'],
     queryFn: getWords,
     staleTime: 30 * 60_000,
     refetchOnWindowFocus: false,
   });
 
-  const loading =
-    supportedLanguagesLoading || categoriesLoading || wordsLoading;
-  const error =
-    supportedLanguagesError || categoriesError || wordsError || undefined;
+  const loading = supportedLanguagesLoading || categoriesLoading || wordsLoading;
+  const error = supportedLanguagesError || categoriesError || wordsError || undefined;
 
   const [language, setLanguage] = useState<Language | undefined>(undefined);
   const toast = useToast();
 
   const showAlert = useCallback(
-    (severity: "success" | "error" | "info", title: string) => {
+    (severity: 'success' | 'error' | 'info', title: string) => {
       toast.show({
-        placement: "bottom right",
+        placement: 'bottom right',
         duration: 3000,
         render: () => (
           <Toast action={severity} variant="solid">
@@ -104,18 +86,14 @@ export const DataContextProvider = ({
     return words.filter((w) => w.languageId === language.id);
   }, [words, language]);
 
-  const mutation = useMutation<
-    Word,
-    Error,
-    { image: string; language: string }
-  >({
+  const mutation = useMutation<Word, Error, { image: string; language: string }>({
     mutationFn: identifyWord,
     onSuccess: () => {
-      showAlert("success", "Item processed");
-      queryClient.invalidateQueries({ queryKey: ["words"] });
+      showAlert('success', 'Item processed');
+      queryClient.invalidateQueries({ queryKey: ['words'] });
     },
     onError: () => {
-      showAlert("error", "Failed to process item");
+      showAlert('error', 'Failed to process item');
     },
   });
 
@@ -123,10 +101,10 @@ export const DataContextProvider = ({
     (iso: string) => {
       const found = supportedLanguages.find((l) => l.iso639 === iso);
       if (!found) {
-        showAlert("error", "Invalid language selected");
+        showAlert('error', 'Invalid language selected');
         return;
       }
-      showAlert("info", `Language changed to ${found.name}`);
+      showAlert('info', `Language changed to ${found.name}`);
       setLanguage(found);
     },
     [showAlert, supportedLanguages],
@@ -135,7 +113,7 @@ export const DataContextProvider = ({
   const processItem = useCallback(
     async (image: string) => {
       if (!language) {
-        showAlert("error", "Select language first");
+        showAlert('error', 'Select language first');
         return;
       }
       await mutation.mutateAsync({ image, language: language.iso639 });
@@ -173,6 +151,6 @@ export const DataContextProvider = ({
 
 export const useData = () => {
   const ctx = useContext(DataContext);
-  if (!ctx) throw new Error("useData must be used within DataContextProvider");
+  if (!ctx) throw new Error('useData must be used within DataContextProvider');
   return ctx;
 };

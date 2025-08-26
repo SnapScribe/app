@@ -1,8 +1,8 @@
-import { HStack } from "@/components/ui/hstack";
-import { Heading } from "@/components/ui/heading";
-import { Text } from "@/components/ui/text";
-import { Icon } from "@/components/ui/icon";
-import { Pressable } from "react-native";
+import { HStack } from '@/components/ui/hstack';
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import { Icon } from '@/components/ui/icon';
+import { Pressable } from 'react-native';
 
 interface HeaderButtonProps {
   text: string;
@@ -24,16 +24,12 @@ export const Header = ({ title, leftButton, rightButton }: HeaderProps) => {
           onPress={leftButton.onClick}
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           accessibilityRole="button"
-          accessibilityLabel={leftButton.text}
-        >
+          accessibilityLabel={leftButton.text}>
           <HStack
             space="xs"
-            className="h-11 min-w-[64px] items-center justify-start rounded-[12px] px-3 bg-background-100"
-          >
+            className="h-11 min-w-[64px] items-center justify-start rounded-[12px] px-3 bg-background-100">
             <Icon size="lg" as={leftButton.icon} />
-            <Text className="text-typography-900 font-dm-sans-medium">
-              {leftButton.text}
-            </Text>
+            <Text className="text-typography-900 font-dm-sans-medium">{leftButton.text}</Text>
           </HStack>
         </Pressable>
       )}
@@ -48,16 +44,12 @@ export const Header = ({ title, leftButton, rightButton }: HeaderProps) => {
           onPress={rightButton.onClick}
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
           accessibilityRole="button"
-          accessibilityLabel={rightButton.text}
-        >
+          accessibilityLabel={rightButton.text}>
           <HStack
             space="xs"
-            className="h-11 min-w-[64px] items-end justify-end rounded-[12px] px-3 bg-background-100"
-          >
+            className="h-11 min-w-[64px] items-end justify-end rounded-[12px] px-3 bg-background-100">
             <Icon size="lg" as={rightButton.icon} />
-            <Text className="text-typography-900 font-dm-sans-medium">
-              {rightButton.text}
-            </Text>
+            <Text className="text-typography-900 font-dm-sans-medium">{rightButton.text}</Text>
           </HStack>
         </Pressable>
       )}

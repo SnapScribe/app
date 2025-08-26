@@ -1,24 +1,24 @@
-import React, { useMemo, useState } from "react";
-import { Animated } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
-import { ArrowLeftIcon } from "lucide-react-native";
-import { VStack } from "@/components/ui/vstack";
-import WordCard from "@/components/screens/images/WordCard";
-import { useData } from "@/contexts/DataContext";
-import PageWrapper from "@/components/shared/PageWrapper";
-import { Header } from "@/components/shared/Header";
-import { Box } from "@/components/ui/box";
-import { Icon, SearchIcon } from "@/components/ui/icon";
-import { Heading } from "@/components/ui/heading";
-import { Text } from "@/components/ui/text";
-import PageLoader from "@/components/shared/PageLoader";
-import SearchBar from "@/components/shared/SearchBar";
-import { Word } from "@/types";
+import React, { useMemo, useState } from 'react';
+import { Animated } from 'react-native';
+import { router, useLocalSearchParams } from 'expo-router';
+import { ArrowLeftIcon } from 'lucide-react-native';
+import { VStack } from '@/components/ui/vstack';
+import WordCard from '@/components/screens/images/WordCard';
+import { useData } from '@/contexts/DataContext';
+import PageWrapper from '@/components/shared/PageWrapper';
+import { Header } from '@/components/shared/Header';
+import { Box } from '@/components/ui/box';
+import { Icon, SearchIcon } from '@/components/ui/icon';
+import { Heading } from '@/components/ui/heading';
+import { Text } from '@/components/ui/text';
+import PageLoader from '@/components/shared/PageLoader';
+import SearchBar from '@/components/shared/SearchBar';
+import { Word } from '@/types';
 
 const Archive = () => {
   const params = useLocalSearchParams();
   const { categories, filteredWords } = useData();
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>('');
 
   const selectedCategory = useMemo(() => {
     const category = categories.find((c) => c.id === Number(params.category));
@@ -32,9 +32,7 @@ const Archive = () => {
 
   const searchedWords = useMemo(() => {
     if (!query.trim()) return selectedWords;
-    return selectedWords.filter((word) =>
-      word.name.toLowerCase().includes(query.toLowerCase()),
-    );
+    return selectedWords.filter((word) => word.name.toLowerCase().includes(query.toLowerCase()));
   }, [selectedWords, query]);
 
   const renderEmptyState = () => (
@@ -43,12 +41,12 @@ const Archive = () => {
         <Icon as={SearchIcon} size="xl" className="text-typography-400" />
       </Box>
       <Heading className="text-lg text-center mb-2 text-typography-700">
-        {query.trim() ? "No matching words" : "No words found"}
+        {query.trim() ? 'No matching words' : 'No words found'}
       </Heading>
       <Text className="text-center text-typography-500 leading-5">
         {query.trim()
           ? `No words match "${query}". Try a different search term.`
-          : "There are no words in this category yet. Start adding some words to see them here."}
+          : 'There are no words in this category yet. Start adding some words to see them here.'}
       </Text>
     </VStack>
   );
@@ -58,9 +56,9 @@ const Archive = () => {
   return (
     <PageWrapper>
       <Header
-        title={selectedCategory ? selectedCategory.name : "Loading..."}
+        title={selectedCategory ? selectedCategory.name : 'Loading...'}
         leftButton={{
-          text: "Go Back",
+          text: 'Go Back',
           onClick: () => router.back(),
           icon: ArrowLeftIcon,
         }}

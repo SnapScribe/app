@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import Animated from "react-native-reanimated";
-import { VStack } from "../ui/vstack";
+import { ReactNode } from 'react';
+import Animated from 'react-native-reanimated';
+import { VStack } from '../ui/vstack';
 
 const PageWrapper = ({ children }: { children: ReactNode }) => {
   const AnimatedVStack = Animated.createAnimatedComponent(VStack);
