@@ -3,6 +3,7 @@ import { Slot } from "expo-router";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { View } from "@/components/ui/view";
 import { Text } from "@/components/ui/text";
+import { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import {
   useSharedValue,
   interpolate,
@@ -33,7 +34,9 @@ const ImagesLayout = () => {
     }
   }, [scrollViewRef]);
 
-  const handleScrollWithPosition = (event: any) => {
+  const handleScrollWithPosition = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => {
     const y = event.nativeEvent.contentOffset.y;
     scrollY.value = y;
 
