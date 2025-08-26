@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Select,
   SelectTrigger,
@@ -10,10 +10,10 @@ import {
   SelectDragIndicator,
   SelectDragIndicatorWrapper,
   SelectItem,
-} from "@/components/ui/select";
-import { ChevronDownIcon, Icon } from "@/components/ui/icon";
-import { Box } from "@/components/ui/box";
-import { Language } from "@/types";
+} from '@/components/ui/select';
+import { ChevronDownIcon, Icon } from '@/components/ui/icon';
+import { Box } from '@/components/ui/box';
+import { Language } from '@/types';
 
 interface SelectCardProps {
   placeholder: string;
@@ -23,20 +23,13 @@ interface SelectCardProps {
   value?: string;
 }
 
-const SelectCard = ({
-  placeholder,
-  icon,
-  options,
-  onValueChange,
-  value,
-}: SelectCardProps) => {
+const SelectCard = ({ placeholder, icon, options, onValueChange, value }: SelectCardProps) => {
   return (
     <Select onValueChange={onValueChange} defaultValue={value}>
       <SelectTrigger
         variant="outline"
         size="md"
-        className="p-3 h-14 items-center bg-background-100 rounded-[18px] gap-3 flex flex-row data-[active=true]:bg-primary-100"
-      >
+        className="p-3 h-14 items-center bg-background-100 rounded-[18px] gap-3 flex flex-row data-[active=true]:bg-primary-100">
         <Box className="p-3">
           <Icon as={icon} size="sm" className="text-primary-700" />
         </Box>
@@ -48,11 +41,7 @@ const SelectCard = ({
 
         {/* Chevron Icon */}
         <Box className="h-6 w-6 bg-background-0 rounded-full items-center justify-center ml-3">
-          <SelectIcon
-            as={ChevronDownIcon}
-            size="sm"
-            className="text-background-800"
-          />
+          <SelectIcon as={ChevronDownIcon} size="sm" className="text-background-800" />
         </Box>
       </SelectTrigger>
 

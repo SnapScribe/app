@@ -1,15 +1,11 @@
-import React, { useEffect, useRef } from "react";
-import { Slot } from "expo-router";
-import { ScrollView } from "@/components/ui/scroll-view";
-import { View } from "@/components/ui/view";
-import { Text } from "@/components/ui/text";
-import {
-  useSharedValue,
-  interpolate,
-  Extrapolation,
-} from "react-native-reanimated";
-import { useData } from "@/contexts/DataContext";
-import PageLoader from "@/components/shared/PageLoader";
+import React, { useEffect, useRef } from 'react';
+import { Slot } from 'expo-router';
+import { ScrollView } from '@/components/ui/scroll-view';
+import { View } from '@/components/ui/view';
+import { Text } from '@/components/ui/text';
+import { useSharedValue, interpolate, Extrapolation } from 'react-native-reanimated';
+import { useData } from '@/contexts/DataContext';
+import PageLoader from '@/components/shared/PageLoader';
 
 const ImagesLayout = () => {
   const { loading, error } = useData();
@@ -31,7 +27,7 @@ const ImagesLayout = () => {
       scrollY.value = targetY;
       animatedHeight.value = isHeaderShrunk.value ? 140 : 340;
     }
-  }, [scrollViewRef]);
+  }, [scrollViewRef, isHeaderShrunk, scrollY, animatedHeight]);
 
   const handleScrollWithPosition = (event: any) => {
     const y = event.nativeEvent.contentOffset.y;
@@ -39,12 +35,7 @@ const ImagesLayout = () => {
 
     isHeaderShrunk.value = y >= 200;
 
-    animatedHeight.value = interpolate(
-      y,
-      [0, 200],
-      [340, 140],
-      Extrapolation.CLAMP,
-    );
+    animatedHeight.value = interpolate(y, [0, 200], [340, 140], Extrapolation.CLAMP);
   };
 
   if (loading) return <PageLoader />;
@@ -59,8 +50,7 @@ const ImagesLayout = () => {
         scrollEventThrottle={16}
         className="bg-background-0"
         bounces={false}
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         <Slot />
         {/* consider it like a {children} */}
       </ScrollView>

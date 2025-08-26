@@ -1,8 +1,7 @@
-import React from "react";
-import { Skeleton } from "../ui/skeleton";
-import PageWrapper from "./PageWrapper";
-import { Box } from "../ui/box";
-import { VStack } from "../ui/vstack";
+import React from 'react';
+import { Skeleton } from '../ui/skeleton';
+import PageWrapper from './PageWrapper';
+import { VStack } from '../ui/vstack';
 
 const PageLoader = () => {
   return (
