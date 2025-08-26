@@ -32,16 +32,20 @@ export const BillingContextProvider = ({
   const [subscriptionActive, setSubscriptionActive] = useState(false);
 
   // get the latest details about the user (is anonymous, user id, has active subscription)
-  const getUserDetails = async () => {
-    setIsAnonymous(await Purchases.isAnonymous());
-    setUserId(await Purchases.getAppUserID());
+    const getUserDetails = async () => {
+      try {
+        setIsAnonymous(await Purchases.isAnonymous());
+        setUserId(await Purchases.getAppUserID());
 
-    const customerInfo = await Purchases.getCustomerInfo();
-    setSubscriptionActive(
-      typeof customerInfo.entitlements.active[Config.ENTITLEMENT_ID] !==
-        "undefined",
-    );
-  };
+        const customerInfo = await Purchases.getCustomerInfo();
+        setSubscriptionActive(
+          typeof customerInfo.entitlements.active[Config.ENTITLEMENT_ID] !==
+            "undefined",
+        );
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
 
   const checkPaywall = useCallback(async () => {
     try {
