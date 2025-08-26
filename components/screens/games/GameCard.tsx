@@ -1,9 +1,8 @@
-import { Box } from "@/components/ui/box";
 import { Card } from "@/components/ui/card";
 import { Image } from "@/components/ui/image";
 import { Text } from "@/components/ui/text";
 import { FlashCard } from "@/types";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import Animated from "react-native-reanimated";
 
 const GameCard = ({ currentCard }: { currentCard: FlashCard }) => {

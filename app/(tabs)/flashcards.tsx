@@ -31,7 +31,10 @@ const Flashcards = () => {
   const x = useSharedValue(0);
   const toast = useToast();
 
-  const showAlert = (severity: any, title: string) => {
+  const showAlert = (
+    severity: "success" | "error" | "info",
+    title: string,
+  ) => {
     toast.show({
       placement: "bottom right",
       duration: 500,
