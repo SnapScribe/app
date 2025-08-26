@@ -11,6 +11,7 @@ const GameCard = ({ currentCard }: { currentCard: FlashCard }) => {
       <Animated.View>
         <Image
           className="mb-6 h-[240px] w-full rounded-md aspect-[263/240]"
+          alt={`Image of ${currentCard.word}`}
           source={
             typeof currentCard.image === "string"
               ? { uri: currentCard.image }
