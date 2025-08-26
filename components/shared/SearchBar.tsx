@@ -34,7 +34,12 @@ const SearchBar = ({ query, setQuery }: ISearchBar) => {
           returnKeyType="search"
         />
         {query.length > 0 && (
-          <InputSlot onPress={handleClick}>
+          <InputSlot
+            onPress={handleClick}
+            accessibilityRole="button"
+            accessibilityLabel="Clear search"
+            focusable
+          >
             <InputIcon as={CloseCircleIcon} />
           </InputSlot>
         )}
