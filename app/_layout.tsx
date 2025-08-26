@@ -49,6 +49,7 @@ const MainLayout = () => {
 };
 
 export default function RootLayout() {
+  
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>

@@ -26,6 +26,8 @@ expo-env.d.ts
 # Builds
 android/
 ios/
+*.ipa
+*.tar.gz
 
 # Metro
 .metro-health-check*
