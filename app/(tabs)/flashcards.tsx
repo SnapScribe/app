@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Dimensions, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -30,22 +30,20 @@ const Flashcards = () => {
   const x = useSharedValue(0);
   const toast = useToast();
 
-  const showAlert = (
-    severity: "success" | "error" | "info",
-    title: string,
-  ) => {
-    toast.show({
-      placement: "bottom right",
-      duration: 500,
-      render: ({ id }) => {
-        return (
+  const showAlert = useCallback(
+    (severity: "success" | "error" | "info", title: string) => {
+      toast.show({
+        placement: "bottom right",
+        duration: 500,
+        render: () => (
           <Toast action={severity} variant="solid">
             <ToastTitle>{title}</ToastTitle>
           </Toast>
-        );
-      },
-    });
-  };
+        ),
+      });
+    },
+    [toast],
+  );
 
   useEffect(() => {
     const allWordsSeen =
@@ -93,9 +91,12 @@ const Flashcards = () => {
     };
   }, [flashcardWords]);
 
-  const markSeen = (word: string) => {
-    setSeen((prev) => (prev.includes(word) ? prev : [...prev, word]));
-  };
+  const markSeen = useCallback(
+    (word: string) => {
+      setSeen((prev) => (prev.includes(word) ? prev : [...prev, word]));
+    },
+    [setSeen],
+  );
 
   const gesture = Gesture.Pan()
     .onBegin(() => {
