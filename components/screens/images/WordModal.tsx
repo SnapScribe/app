@@ -1,7 +1,7 @@
-import { Heading } from "@/components/ui/heading";
-import { CloseIcon, Icon } from "@/components/ui/icon";
-import { Image } from "@/components/ui/image";
-import { View } from "@/components/ui/view";
+import { Heading } from '@/components/ui/heading';
+import { CloseIcon, Icon } from '@/components/ui/icon';
+import { Image } from '@/components/ui/image';
+import { View } from '@/components/ui/view';
 import {
   ModalBackdrop,
   ModalContent,
@@ -9,10 +9,10 @@ import {
   ModalCloseButton,
   ModalBody,
   Modal,
-} from "@/components/ui/modal";
-import { Text } from "@/components/ui/text";
-import { VStack } from "@/components/ui/vstack";
-import { Word } from "@/types";
+} from '@/components/ui/modal';
+import { Text } from '@/components/ui/text';
+import { VStack } from '@/components/ui/vstack';
+import { Word } from '@/types';
 
 const WordModal = ({
   showModal,
@@ -29,8 +29,7 @@ const WordModal = ({
       onClose={() => {
         setShowModal(false);
       }}
-      size="full"
-    >
+      size="full">
       <ModalBackdrop className="bg-black/80" />
       <ModalContent className="m-0 w-full h-full bg-transparent rounded-none">
         {/* Background Image */}
@@ -55,8 +54,7 @@ const WordModal = ({
         <ModalBody className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 md:p-8">
           <VStack
             space="lg"
-            className="items-center max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] text-center"
-          >
+            className="items-center max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[65%] text-center">
             <Heading className="text-white font-bold drop-shadow-lg text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
               {word.name}
             </Heading>

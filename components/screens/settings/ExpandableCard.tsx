@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import {
   Accordion,
   AccordionItem,
@@ -7,10 +7,10 @@ import {
   AccordionTitleText,
   AccordionContent,
   AccordionIcon,
-} from "@/components/ui/accordion";
-import { ChevronDownIcon, ChevronUpIcon, Icon } from "@/components/ui/icon";
-import { Box } from "@/components/ui/box";
-import { HStack } from "@/components/ui/hstack";
+} from '@/components/ui/accordion';
+import { ChevronDownIcon, ChevronUpIcon, Icon } from '@/components/ui/icon';
+import { Box } from '@/components/ui/box';
+import { HStack } from '@/components/ui/hstack';
 
 interface ExpandableCardProps {
   title: string;
@@ -26,12 +26,8 @@ const ExpandableCard = ({ title, icon, children }: ExpandableCardProps) => {
       type="single"
       isCollapsible={true}
       isDisabled={false}
-      className="w-full border-0 bg-background-100 rounded-[18px] mb-3 shadow-none"
-    >
-      <AccordionItem
-        value={title}
-        className="border-0 bg-background-100 rounded-[18px]"
-      >
+      className="w-full border-0 bg-background-100 rounded-[18px] mb-3 shadow-none">
+      <AccordionItem value={title} className="border-0 bg-background-100 rounded-[18px]">
         <AccordionHeader className="p-0">
           <AccordionTrigger className="p-3 h-14 rounded-[18px] data-[state=open]:bg-primary-100">
             {({ isExpanded }) => {
@@ -47,11 +43,7 @@ const ExpandableCard = ({ title, icon, children }: ExpandableCardProps) => {
 
                   <Box className="h-6 w-6 bg-background-0 rounded-full items-center justify-center">
                     {isExpanded ? (
-                      <AccordionIcon
-                        as={ChevronUpIcon}
-                        size="sm"
-                        className="text-background-800"
-                      />
+                      <AccordionIcon as={ChevronUpIcon} size="sm" className="text-background-800" />
                     ) : (
                       <AccordionIcon
                         as={ChevronDownIcon}

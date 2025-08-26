@@ -1,4 +1,4 @@
-declare module "react-native-config" {
+declare module 'react-native-config' {
   export interface NativeConfig {
     REVENUECAT_APPSTORE_API_KEY: string;
     REVENUECAT_PLAYSTORE_API_KEY: string;

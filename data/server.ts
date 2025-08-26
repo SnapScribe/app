@@ -1,5 +1,5 @@
-import { Category, Language, Word } from "@/types";
-import { mockCategories, mockSupportedLanguages, mockWords } from "./mocks";
+import { Category, Language, Word } from '@/types';
+import { mockCategories, mockSupportedLanguages, mockWords } from './mocks';
 
 export const getSupportedLanguages = async (): Promise<Language[]> => {
   return new Promise((resolve) => {

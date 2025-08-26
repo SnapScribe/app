@@ -1,24 +1,17 @@
-"use client";
-import React from "react";
-import { createModal as createDrawer } from "@gluestack-ui/modal";
-import { Pressable, View, ScrollView, Dimensions } from "react-native";
-import {
-  Motion,
-  AnimatePresence,
-  createMotionAnimatedComponent,
-} from "@legendapp/motion";
-import { tva } from "@gluestack-ui/nativewind-utils/tva";
-import {
-  withStyleContext,
-  useStyleContext,
-} from "@gluestack-ui/nativewind-utils/withStyleContext";
-import { cssInterop } from "nativewind";
-import type { VariantProps } from "@gluestack-ui/nativewind-utils";
+'use client';
+import React from 'react';
+import { createModal as createDrawer } from '@gluestack-ui/modal';
+import { Pressable, View, ScrollView, Dimensions } from 'react-native';
+import { Motion, AnimatePresence, createMotionAnimatedComponent } from '@legendapp/motion';
+import { tva } from '@gluestack-ui/nativewind-utils/tva';
+import { withStyleContext, useStyleContext } from '@gluestack-ui/nativewind-utils/withStyleContext';
+import { cssInterop } from 'nativewind';
+import type { VariantProps } from '@gluestack-ui/nativewind-utils';
 
 const AnimatedPressable = createMotionAnimatedComponent(Pressable);
-const SCOPE = "MODAL";
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const SCOPE = 'MODAL';
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 const sizes: { [key: string]: number } = {
   sm: 0.25,
   md: 0.5,
@@ -37,105 +30,105 @@ const UIDrawer = createDrawer({
   AnimatePresence: AnimatePresence,
 });
 
-cssInterop(AnimatedPressable, { className: "style" });
-cssInterop(Motion.View, { className: "style" });
+cssInterop(AnimatedPressable, { className: 'style' });
+cssInterop(Motion.View, { className: 'style' });
 
 const drawerStyle = tva({
-  base: "w-full h-full web:pointer-events-none relative",
+  base: 'w-full h-full web:pointer-events-none relative',
   variants: {
     size: {
-      sm: "",
-      md: "",
-      lg: "",
-      full: "",
+      sm: '',
+      md: '',
+      lg: '',
+      full: '',
     },
     anchor: {
-      left: "items-start",
-      right: "items-end",
-      top: "justify-start",
-      bottom: "justify-end",
+      left: 'items-start',
+      right: 'items-end',
+      top: 'justify-start',
+      bottom: 'justify-end',
     },
   },
 });
 
 const drawerBackdropStyle = tva({
-  base: "absolute left-0 top-0 right-0 bottom-0 bg-background-dark web:cursor-default",
+  base: 'absolute left-0 top-0 right-0 bottom-0 bg-background-dark web:cursor-default',
 });
 
 const drawerContentStyle = tva({
-  base: "bg-background-0 overflow-scroll border-outline-100 p-6 absolute",
+  base: 'bg-background-0 overflow-scroll border-outline-100 p-6 absolute',
   parentVariants: {
     size: {
-      sm: "w-1/4",
-      md: "w-1/2",
-      lg: "w-3/4",
-      full: "w-full",
+      sm: 'w-1/4',
+      md: 'w-1/2',
+      lg: 'w-3/4',
+      full: 'w-full',
     },
     anchor: {
-      left: "h-full border-r",
-      right: "h-full border-l",
-      top: "w-full border-b",
-      bottom: "w-full border-t",
+      left: 'h-full border-r',
+      right: 'h-full border-l',
+      top: 'w-full border-b',
+      bottom: 'w-full border-t',
     },
   },
   parentCompoundVariants: [
     {
-      anchor: "top",
-      size: "sm",
-      class: "h-1/4",
+      anchor: 'top',
+      size: 'sm',
+      class: 'h-1/4',
     },
     {
-      anchor: "top",
-      size: "md",
-      class: "h-1/2",
+      anchor: 'top',
+      size: 'md',
+      class: 'h-1/2',
     },
     {
-      anchor: "top",
-      size: "lg",
-      class: "h-3/4",
+      anchor: 'top',
+      size: 'lg',
+      class: 'h-3/4',
     },
     {
-      anchor: "top",
-      size: "full",
-      class: "h-full",
+      anchor: 'top',
+      size: 'full',
+      class: 'h-full',
     },
     {
-      anchor: "bottom",
-      size: "sm",
-      class: "h-1/4",
+      anchor: 'bottom',
+      size: 'sm',
+      class: 'h-1/4',
     },
     {
-      anchor: "bottom",
-      size: "md",
-      class: "h-1/2",
+      anchor: 'bottom',
+      size: 'md',
+      class: 'h-1/2',
     },
     {
-      anchor: "bottom",
-      size: "lg",
-      class: "h-3/4",
+      anchor: 'bottom',
+      size: 'lg',
+      class: 'h-3/4',
     },
     {
-      anchor: "bottom",
-      size: "full",
-      class: "h-full",
+      anchor: 'bottom',
+      size: 'full',
+      class: 'h-full',
     },
   ],
 });
 
 const drawerCloseButtonStyle = tva({
-  base: "z-10 rounded data-[focus-visible=true]:web:bg-background-100 web:outline-0 cursor-pointer",
+  base: 'z-10 rounded data-[focus-visible=true]:web:bg-background-100 web:outline-0 cursor-pointer',
 });
 
 const drawerHeaderStyle = tva({
-  base: "justify-between items-center flex-row",
+  base: 'justify-between items-center flex-row',
 });
 
 const drawerBodyStyle = tva({
-  base: "mt-4 mb-6 shrink-0",
+  base: 'mt-4 mb-6 shrink-0',
 });
 
 const drawerFooterStyle = tva({
-  base: "flex-row justify-end items-center",
+  base: 'flex-row justify-end items-center',
 });
 
 type IDrawerProps = React.ComponentProps<typeof UIDrawer> &
@@ -156,25 +149,22 @@ type IDrawerBodyProps = React.ComponentProps<typeof UIDrawer.Body> &
 type IDrawerFooterProps = React.ComponentProps<typeof UIDrawer.Footer> &
   VariantProps<typeof drawerFooterStyle> & { className?: string };
 
-type IDrawerCloseButtonProps = React.ComponentProps<
-  typeof UIDrawer.CloseButton
-> &
+type IDrawerCloseButtonProps = React.ComponentProps<typeof UIDrawer.CloseButton> &
   VariantProps<typeof drawerCloseButtonStyle> & { className?: string };
 
-const Drawer = React.forwardRef<
-  React.ElementRef<typeof UIDrawer>,
-  IDrawerProps
->(({ className, size = "sm", anchor = "left", ...props }, ref) => {
-  return (
-    <UIDrawer
-      ref={ref}
-      {...props}
-      pointerEvents="box-none"
-      className={drawerStyle({ size, anchor, class: className })}
-      context={{ size, anchor }}
-    />
-  );
-});
+const Drawer = React.forwardRef<React.ElementRef<typeof UIDrawer>, IDrawerProps>(
+  ({ className, size = 'sm', anchor = 'left', ...props }, ref) => {
+    return (
+      <UIDrawer
+        ref={ref}
+        {...props}
+        pointerEvents="box-none"
+        className={drawerStyle({ size, anchor, class: className })}
+        context={{ size, anchor }}
+      />
+    );
+  },
+);
 
 const DrawerBackdrop = React.forwardRef<
   React.ElementRef<typeof UIDrawer.Backdrop>,
@@ -193,11 +183,11 @@ const DrawerBackdrop = React.forwardRef<
         opacity: 0,
       }}
       transition={{
-        type: "spring",
+        type: 'spring',
         damping: 18,
         stiffness: 250,
         opacity: {
-          type: "timing",
+          type: 'timing',
           duration: 250,
         },
       }}
@@ -218,21 +208,21 @@ const DrawerContent = React.forwardRef<
   const drawerHeight = screenHeight * (sizes[parentSize] || sizes.md);
   const drawerWidth = screenWidth * (sizes[parentSize] || sizes.md);
 
-  const isHorizontal = parentAnchor === "left" || parentAnchor === "right";
+  const isHorizontal = parentAnchor === 'left' || parentAnchor === 'right';
 
   const initialObj = isHorizontal
-    ? { x: parentAnchor === "left" ? -drawerWidth : drawerWidth }
-    : { y: parentAnchor === "top" ? -drawerHeight : drawerHeight };
+    ? { x: parentAnchor === 'left' ? -drawerWidth : drawerWidth }
+    : { y: parentAnchor === 'top' ? -drawerHeight : drawerHeight };
 
   const animateObj = isHorizontal ? { x: 0 } : { y: 0 };
 
   const exitObj = isHorizontal
-    ? { x: parentAnchor === "left" ? -drawerWidth : drawerWidth }
-    : { y: parentAnchor === "top" ? -drawerHeight : drawerHeight };
+    ? { x: parentAnchor === 'left' ? -drawerWidth : drawerWidth }
+    : { y: parentAnchor === 'top' ? -drawerHeight : drawerHeight };
 
   const customClass = isHorizontal
-    ? `top-0 ${parentAnchor === "left" ? "left-0" : "right-0"}`
-    : `left-0 ${parentAnchor === "top" ? "top-0" : "bottom-0"}`;
+    ? `top-0 ${parentAnchor === 'left' ? 'left-0' : 'right-0'}`
+    : `left-0 ${parentAnchor === 'top' ? 'top-0' : 'bottom-0'}`;
 
   return (
     <UIDrawer.Content
@@ -241,7 +231,7 @@ const DrawerContent = React.forwardRef<
       animate={animateObj}
       exit={exitObj}
       transition={{
-        type: "timing",
+        type: 'timing',
         duration: 300,
       }}
       {...props}
@@ -257,50 +247,47 @@ const DrawerContent = React.forwardRef<
   );
 });
 
-const DrawerHeader = React.forwardRef<
-  React.ElementRef<typeof UIDrawer.Header>,
-  IDrawerHeaderProps
->(({ className, ...props }, ref) => {
-  return (
-    <UIDrawer.Header
-      ref={ref}
-      {...props}
-      className={drawerHeaderStyle({
-        class: className,
-      })}
-    />
-  );
-});
+const DrawerHeader = React.forwardRef<React.ElementRef<typeof UIDrawer.Header>, IDrawerHeaderProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <UIDrawer.Header
+        ref={ref}
+        {...props}
+        className={drawerHeaderStyle({
+          class: className,
+        })}
+      />
+    );
+  },
+);
 
-const DrawerBody = React.forwardRef<
-  React.ElementRef<typeof UIDrawer.Body>,
-  IDrawerBodyProps
->(({ className, ...props }, ref) => {
-  return (
-    <UIDrawer.Body
-      ref={ref}
-      {...props}
-      className={drawerBodyStyle({
-        class: className,
-      })}
-    />
-  );
-});
+const DrawerBody = React.forwardRef<React.ElementRef<typeof UIDrawer.Body>, IDrawerBodyProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <UIDrawer.Body
+        ref={ref}
+        {...props}
+        className={drawerBodyStyle({
+          class: className,
+        })}
+      />
+    );
+  },
+);
 
-const DrawerFooter = React.forwardRef<
-  React.ElementRef<typeof UIDrawer.Footer>,
-  IDrawerFooterProps
->(({ className, ...props }, ref) => {
-  return (
-    <UIDrawer.Footer
-      ref={ref}
-      {...props}
-      className={drawerFooterStyle({
-        class: className,
-      })}
-    />
-  );
-});
+const DrawerFooter = React.forwardRef<React.ElementRef<typeof UIDrawer.Footer>, IDrawerFooterProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <UIDrawer.Footer
+        ref={ref}
+        {...props}
+        className={drawerFooterStyle({
+          class: className,
+        })}
+      />
+    );
+  },
+);
 
 const DrawerCloseButton = React.forwardRef<
   React.ElementRef<typeof UIDrawer.CloseButton>,
@@ -317,13 +304,13 @@ const DrawerCloseButton = React.forwardRef<
   );
 });
 
-Drawer.displayName = "Drawer";
-DrawerBackdrop.displayName = "DrawerBackdrop";
-DrawerContent.displayName = "DrawerContent";
-DrawerHeader.displayName = "DrawerHeader";
-DrawerBody.displayName = "DrawerBody";
-DrawerFooter.displayName = "DrawerFooter";
-DrawerCloseButton.displayName = "DrawerCloseButton";
+Drawer.displayName = 'Drawer';
+DrawerBackdrop.displayName = 'DrawerBackdrop';
+DrawerContent.displayName = 'DrawerContent';
+DrawerHeader.displayName = 'DrawerHeader';
+DrawerBody.displayName = 'DrawerBody';
+DrawerFooter.displayName = 'DrawerFooter';
+DrawerCloseButton.displayName = 'DrawerCloseButton';
 
 export {
   Drawer,
