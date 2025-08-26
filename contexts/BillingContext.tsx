@@ -93,7 +93,7 @@ export const BillingContextProvider = ({
       subscriptionActive,
       checkPaywall,
     };
-  }, [isAnonymous, userId, subscriptionActive]);
+  }, [isAnonymous, userId, subscriptionActive, checkPaywall]);
 
   return (
     <BillingContext.Provider value={value}>{children}</BillingContext.Provider>
