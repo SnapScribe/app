@@ -29,6 +29,9 @@ const WordCard = ({ word }: IWordCard) => {
       />
 
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={`View details for ${word.name}`}
+        accessibilityHint="Opens word details"
         onPress={() => !loading && setShowModal(true)}
         className="rounded-[18px] bg-background-100 p-4 data-[active=true]:bg-primary-100"
       >
