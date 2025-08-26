@@ -17,7 +17,7 @@ import { Language } from "@/types";
 
 interface SelectCardProps {
   placeholder: string;
-  icon: any;
+  icon: React.ElementType;
   options: Language[];
   onValueChange?: (value: string) => void;
   value?: string;

@@ -14,7 +14,7 @@ import { HStack } from "@/components/ui/hstack";
 
 interface ExpandableCardProps {
   title: string;
-  icon: any;
+  icon: React.ElementType;
   children: ReactNode;
 }
 
