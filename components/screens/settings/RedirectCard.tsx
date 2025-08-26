@@ -4,7 +4,7 @@ import { Text } from "@/components/ui/text";
 import { ChevronRightIcon, Icon } from "@/components/ui/icon";
 import { Box } from "@/components/ui/box";
 
-const RedirectCard = ({ title, icon }: { title: string; icon: any }) => {
+const RedirectCard = ({ title, icon }: { title: string; icon: React.ElementType }) => {
   return (
     <Pressable className="p-3 h-14 items-center bg-background-100 rounded-[18px] gap-3 flex flex-row data-[active=true]:bg-primary-100">
       <Box className="p-3">
