@@ -14,6 +14,9 @@ interface ICategoryCard {
 const CategoryCard = ({ id, emoji, text }: ICategoryCard) => {
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={`Open ${text} category`}
+      accessibilityHint={`Opens the ${text} category`}
       onPress={() =>
         router.push({
           pathname: "/(tabs)/(images)/archive",
