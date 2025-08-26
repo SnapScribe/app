@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Dimensions, View } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Dimensions, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   Extrapolate,
   interpolate,
@@ -30,19 +30,20 @@ const Flashcards = () => {
   const x = useSharedValue(0);
   const toast = useToast();
 
-  const showAlert = (severity: 'success' | 'error' | 'info', title: string) => {
-    toast.show({
-      placement: 'bottom right',
-      duration: 500,
-      render: ({ id }) => {
-        return (
+  const showAlert = useCallback(
+    (severity: "success" | "error" | "info", title: string) => {
+      toast.show({
+        placement: "bottom right",
+        duration: 500,
+        render: () => (
           <Toast action={severity} variant="solid">
             <ToastTitle>{title}</ToastTitle>
           </Toast>
-        );
-      },
-    });
-  };
+        ),
+      });
+    },
+    [toast],
+  );
 
   useEffect(() => {
     const allWordsSeen = filteredWords.length > 0 && filteredWords.length - 1 === seen.length;
@@ -89,9 +90,12 @@ const Flashcards = () => {
     };
   }, [flashcardWords]);
 
-  const markSeen = (word: string) => {
-    setSeen((prev) => (prev.includes(word) ? prev : [...prev, word]));
-  };
+  const markSeen = useCallback(
+    (word: string) => {
+      setSeen((prev) => (prev.includes(word) ? prev : [...prev, word]));
+    },
+    [setSeen],
+  );
 
   const gesture = Gesture.Pan()
     .onBegin(() => {
