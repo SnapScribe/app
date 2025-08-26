@@ -78,19 +78,20 @@ export const DataContextProvider = ({
   const [language, setLanguage] = useState<Language | undefined>(undefined);
   const toast = useToast();
 
-  const showAlert = (severity: any, title: string) => {
-    toast.show({
-      placement: "bottom right",
-      duration: 3000,
-      render: ({ id }) => {
-        return (
+  const showAlert = useCallback(
+    (severity: "success" | "error" | "info", title: string) => {
+      toast.show({
+        placement: "bottom right",
+        duration: 3000,
+        render: () => (
           <Toast action={severity} variant="solid">
             <ToastTitle>{title}</ToastTitle>
           </Toast>
-        );
-      },
-    });
-  };
+        ),
+      });
+    },
+    [toast],
+  );
 
   useEffect(() => {
     if (!language && supportedLanguages.length > 0) {
@@ -128,7 +129,7 @@ export const DataContextProvider = ({
       showAlert("info", `Language changed to ${found.name}`);
       setLanguage(found);
     },
-    [supportedLanguages, showAlert],
+    [showAlert, supportedLanguages],
   );
 
   const processItem = useCallback(
@@ -139,7 +140,7 @@ export const DataContextProvider = ({
       }
       await mutation.mutateAsync({ image, language: language.iso639 });
     },
-    [language, mutation, showAlert],
+    [showAlert, language, mutation],
   );
 
   const value = useMemo<DataContextProps>(
