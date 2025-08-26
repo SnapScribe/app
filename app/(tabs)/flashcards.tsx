@@ -47,7 +47,7 @@ const Flashcards = () => {
 
   useEffect(() => {
     const allWordsSeen =
-      filteredWords.length > 0 && filteredWords.length - 1 == seen.length;
+      filteredWords.length > 0 && filteredWords.length - 1 === seen.length;
     if (allWordsSeen) {
       setSeen([]);
     }
@@ -62,9 +62,9 @@ const Flashcards = () => {
     const idx = Math.floor(Math.random() * flashcardWords.length);
     const w = flashcardWords[idx];
 
-    const filtered = flashcardWords.filter((word) => word != w);
+    const filtered = flashcardWords.filter((word) => word !== w);
     const randomElement =
-      filtered[Math.floor(Math.random() * flashcardWords.length)];
+      filtered[Math.floor(Math.random() * filtered.length)];
 
     let guess1;
     let guess2;
@@ -104,14 +104,14 @@ const Flashcards = () => {
             x.value = 0;
             if (currentCard) {
               runOnJS(markSeen)(currentCard.word);
-              if (dir == -1) {
+              if (dir === -1) {
                 // guess 1 is right
-                if (currentCard.word == currentCard.guess2)
+                if (currentCard.word === currentCard.guess2)
                   runOnJS(showAlert)("error", "Wrong answer");
                 else runOnJS(showAlert)("success", "Correct answer!");
               } else {
                 // guess 2 is right
-                if (currentCard.word == currentCard.guess1)
+                if (currentCard.word === currentCard.guess1)
                   runOnJS(showAlert)("error", "Wrong answer");
                 else runOnJS(showAlert)("success", "Correct answer!");
               }
