@@ -11,14 +11,12 @@ import Animated, {
 } from "react-native-reanimated";
 import { Header } from "@/components/shared/Header";
 import PageWrapper from "@/components/shared/PageWrapper";
-import { Card } from "@/components/ui/card";
 import { useData } from "@/contexts/DataContext";
 import { FlashCard } from "@/types";
-import { Image } from "@/components/ui/image";
 import { Toast, ToastTitle, useToast } from "@/components/ui/toast";
 import GameCard from "@/components/screens/games/GameCard";
 import { Center } from "@/components/ui/center";
-import { VStack } from "@/components/ui/vstack";
+import { Text } from "@/components/ui/text";
 import { Grid, GridItem } from "@/components/ui/grid";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -27,6 +25,7 @@ const OFFSCREEN = SCREEN_WIDTH * 1.2;
 
 const Flashcards = () => {
   const [seen, setSeen] = useState<string[]>([]);
+  const [showGuidance, setShowGuidance] = useState(true);
   const { filteredWords } = useData();
   const x = useSharedValue(0);
   const toast = useToast();
@@ -55,6 +54,12 @@ const Flashcards = () => {
       setSeen([]);
     }
   }, [filteredWords, seen]);
+
+  useEffect(() => {
+    if (filteredWords.length === 0 || seen.length >= filteredWords.length) {
+      setShowGuidance(false);
+    }
+  }, [filteredWords.length, seen.length]);
 
   const flashcardWords = useMemo(() => {
     return filteredWords.filter((w) => !seen.includes(w.name));
@@ -93,6 +98,9 @@ const Flashcards = () => {
   };
 
   const gesture = Gesture.Pan()
+    .onBegin(() => {
+      runOnJS(setShowGuidance)(false);
+    })
     .onUpdate((e) => {
       x.value = e.translationX;
     })
@@ -141,6 +149,16 @@ const Flashcards = () => {
   return (
     <PageWrapper>
       <Header title="Flashcards" />
+      <Center className="mt-4">
+        {showGuidance && (
+          <Text className="text-center mb-2">
+            Swipe left or right to answer
+          </Text>
+        )}
+        <Text className="text-center mb-4">
+          {seen.length}/{filteredWords.length} cards
+        </Text>
+      </Center>
       <GestureDetector gesture={gesture}>
         <View className="flex-1 justify-center items-center">
           <Grid
