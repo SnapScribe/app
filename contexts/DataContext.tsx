@@ -100,8 +100,6 @@ export const DataContextProvider = ({
 
   const filteredWords = useMemo(() => {
     if (!language) return words;
-    showAlert("error", "Invalid language selected");
-
     return words.filter((w) => w.languageId === language.id);
   }, [words, language]);
 
