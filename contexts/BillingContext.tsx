@@ -62,7 +62,7 @@ export const BillingContextProvider = ({ children }: any) => {
     return () => {
       Purchases.removeCustomerInfoUpdateListener(getUserDetails);
     };
-  });
+  }, []);
 
   useEffect(() => {
     Purchases.setLogLevel(LOG_LEVEL.VERBOSE);
