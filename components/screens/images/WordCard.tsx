@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@/components/ui/box";
 import { HStack } from "@/components/ui/hstack";
 import { Image } from "@/components/ui/image";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { Pressable } from "@/components/ui/pressable";
@@ -36,7 +37,7 @@ const WordCard = ({ word }: IWordCard) => {
         className="rounded-[18px] bg-background-100 p-4 data-[active=true]:bg-primary-100"
       >
         <HStack className="items-center">
-          <Box className="mr-4 h-[96px] w-[96px] overflow-hidden rounded-[16px] bg-background-200">
+          <Box className="relative mr-4 h-[96px] w-[96px] overflow-hidden rounded-[16px] bg-background-200">
             <Image
               key={word.image}
               source={{ uri: word.image }}
@@ -46,6 +47,9 @@ const WordCard = ({ word }: IWordCard) => {
               onLoadEnd={() => setLoading(false)}
               onError={() => setLoading(false)}
             />
+            {loading && (
+              <Skeleton className="absolute left-0 top-0 h-full w-full" />
+            )}
           </Box>
 
           <VStack className="flex-1" space="xs">
