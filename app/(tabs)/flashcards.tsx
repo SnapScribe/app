@@ -63,8 +63,7 @@ const Flashcards = () => {
     const w = flashcardWords[idx];
 
     const filtered = flashcardWords.filter((word) => word !== w);
-    const randomElement =
-      filtered[Math.floor(Math.random() * filtered.length)];
+    const randomElement = filtered[Math.floor(Math.random() * filtered.length)];
 
     let guess1;
     let guess2;

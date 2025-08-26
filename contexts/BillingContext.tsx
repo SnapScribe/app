@@ -38,7 +38,8 @@ export const BillingContextProvider = ({
 
     const customerInfo = await Purchases.getCustomerInfo();
     setSubscriptionActive(
-      typeof customerInfo.entitlements.active[Config.ENTITLEMENT_ID] !== "undefined",
+      typeof customerInfo.entitlements.active[Config.ENTITLEMENT_ID] !==
+        "undefined",
     );
   };
 
