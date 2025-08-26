@@ -5,7 +5,7 @@ import { Icon } from "@/components/ui/icon";
 
 interface IThemeCard {
   title: string;
-  icon: any;
+  icon: React.ElementType;
   onPress: () => void;
   active: boolean;
 }
