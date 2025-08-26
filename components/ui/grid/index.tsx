@@ -7,7 +7,14 @@ import React, {
   forwardRef,
 } from "react";
 import type { VariantProps } from "@gluestack-ui/nativewind-utils";
-import { View, Dimensions, Platform, ViewProps } from "react-native";
+import {
+  View,
+  Dimensions,
+  Platform,
+  ViewProps,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from "react-native";
 import { gridStyle, gridItemStyle } from "./styles";
 import { cssInterop } from "nativewind";
 import {
@@ -197,7 +204,7 @@ const Grid = forwardRef<React.ElementRef<typeof View>, IGridProps>(
           className={gridStyle({
             class: className + " " + gridClassMerged,
           })}
-          onLayout={(event: any) => {
+          onLayout={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
             const paddingLeftToSubtract =
               props?.paddingStart || props?.paddingLeft || props?.padding || 0;
 
@@ -205,7 +212,7 @@ const Grid = forwardRef<React.ElementRef<typeof View>, IGridProps>(
               props?.paddingEnd || props?.paddingRight || props?.padding || 0;
 
             const gridWidth =
-              event.nativeEvent.layout.width -
+              event.nativeEvent.layoutMeasurement.width -
               paddingLeftToSubtract -
               paddingRightToSubtract -
               borderWidthToSubtract;
