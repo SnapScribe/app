@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Slot } from "expo-router";
 import { ScrollView } from "@/components/ui/scroll-view";
 import { View } from "@/components/ui/view";
+import { Text } from "@/components/ui/text";
 import {
   useSharedValue,
   interpolate,
@@ -48,7 +49,7 @@ const ImagesLayout = () => {
 
   if (loading) return <PageLoader />;
 
-  if (error) return <p>{error.message}</p>;
+  if (error) return <Text>{error.message}</Text>;
 
   return (
     <View className="flex-1">
