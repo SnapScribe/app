@@ -20,14 +20,14 @@ const Images = () => {
           className: "grid-cols-12",
         }}
       >
-        {categories.map((category: Category, index) => {
+        {categories.map((category: Category) => {
           return (
             <GridItem
               className="p-1 rounded-md"
               _extra={{
                 className: "col-span-12 sm:col-span-6 md:col-span-4",
               }}
-              key={index}
+              key={category.id}
             >
               <CategoryCard
                 id={category.id}
