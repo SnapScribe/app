@@ -27,7 +27,7 @@ const Archive = () => {
 
   const selectedWords = useMemo(() => {
     if (!selectedCategory) return [];
-    return filteredWords.filter((w) => w.categoryId == selectedCategory.id);
+    return filteredWords.filter((w) => w.categoryId === selectedCategory.id);
   }, [selectedCategory, filteredWords]);
 
   const searchedWords = useMemo(() => {
