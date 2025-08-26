@@ -1,6 +1,7 @@
 import { Heading } from "@/components/ui/heading";
 import { CloseIcon, Icon } from "@/components/ui/icon";
 import { Image } from "@/components/ui/image";
+import { View } from "@/components/ui/view";
 import {
   ModalBackdrop,
   ModalContent,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/modal";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
-import { HStack } from "@/components/ui/hstack";
 import { Word } from "@/types";
 
 const WordModal = ({
@@ -34,15 +34,15 @@ const WordModal = ({
       <ModalBackdrop className="bg-black/80" />
       <ModalContent className="m-0 w-full h-full bg-transparent rounded-none">
         {/* Background Image */}
-        <div className="absolute inset-0">
+        <View className="absolute inset-0">
           <Image
-            source={word.image}
+            source={{ uri: word.image }}
             className="w-full h-full object-cover"
             alt={`Image of ${word.name}`}
           />
           {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/50" />
-        </div>
+          <View className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/50" />
+        </View>
 
         {/* Close Button */}
         <ModalHeader className="absolute top-0 right-0 p-6 bg-transparent border-0 z-10">
