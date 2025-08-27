@@ -14,7 +14,7 @@ import { Link, LinkText } from '@/components/ui/link';
 import SelectCard from '@/components/screens/settings/SelectCard';
 
 const Settings = () => {
-  const { colorMode, setColorMode } = useTheme();
+  const { themeMode, setTheme } = useTheme();
   const { supportedLanguages, language, changeLanguage } = useData();
 
   return (
@@ -51,20 +51,20 @@ const Settings = () => {
             <ThemeCard
               title="Light Mode"
               icon={SunIcon}
-              onPress={() => setColorMode('light')}
-              active={colorMode === 'light'}
+              onPress={() => setTheme('light')}
+              active={themeMode === 'light'}
             />
             <ThemeCard
               title="Dark Mode"
               icon={MoonIcon}
-              onPress={() => setColorMode('dark')}
-              active={colorMode === 'dark'}
+              onPress={() => setTheme('dark')}
+              active={themeMode === 'dark'}
             />
             <ThemeCard
               title="Auto"
               icon={SunMoonIcon}
-              onPress={() => setColorMode('system')}
-              active={colorMode === 'system'}
+              onPress={() => setTheme('system')}
+              active={themeMode === 'system'}
             />
           </VStack>
         </VStack>

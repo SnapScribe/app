@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Dimensions, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Dimensions, View } from 'react-native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   Extrapolate,
   interpolate,
@@ -31,9 +31,9 @@ const Flashcards = () => {
   const toast = useToast();
 
   const showAlert = useCallback(
-    (severity: "success" | "error" | "info", title: string) => {
+    (severity: 'success' | 'error' | 'info', title: string) => {
       toast.show({
-        placement: "bottom right",
+        placement: 'bottom right',
         duration: 500,
         render: () => (
           <Toast action={severity} variant="solid">

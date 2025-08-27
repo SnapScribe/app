@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { Slot } from 'expo-router';
 import { ScrollView } from '@/components/ui/scroll-view';
 import { View } from '@/components/ui/view';
-import { Text } from '@/components/ui/text';
 import { useSharedValue, interpolate, Extrapolation } from 'react-native-reanimated';
 import { useData } from '@/contexts/DataContext';
 import PageLoader from '@/components/shared/PageLoader';
+import ErrorPage from '@/components/shared/ErrorPage';
 
 const ImagesLayout = () => {
   const { loading, error } = useData();
@@ -39,8 +39,7 @@ const ImagesLayout = () => {
   };
 
   if (loading) return <PageLoader />;
-
-  if (error) return <Text>{error.message}</Text>;
+  if (error) return <ErrorPage error="Oops!" description={error.message.toString()} />;
 
   return (
     <View className="flex-1">

@@ -1,5 +1,6 @@
 import '@/global.css';
 import { useEffect } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ErrorBoundaryProps, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
@@ -17,7 +18,7 @@ import { BillingContextProvider } from '@/contexts/BillingContext';
 SplashScreen.preventAutoHideAsync();
 
 const MainLayout = () => {
-  const { colorMode } = useTheme();
+  const { themeMode } = useTheme();
   const [fontsLoaded, error] = useFonts({
     'dm-sans-regular': DMSans_400Regular,
     'dm-sans-medium': DMSans_500Medium,
@@ -35,11 +36,13 @@ const MainLayout = () => {
   }, [fontsLoaded]);
 
   return (
-    <GluestackUIProvider mode={colorMode}>
-      <StatusBar translucent />
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+    <GluestackUIProvider mode={themeMode}>
+      <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
+        <StatusBar translucent />
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </SafeAreaView>
     </GluestackUIProvider>
   );
 };
@@ -47,15 +50,15 @@ const MainLayout = () => {
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <DataContextProvider>
-          <BillingContextProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <DataContextProvider>
             <GestureHandlerRootView>
               <MainLayout />
             </GestureHandlerRootView>
-          </BillingContextProvider>
-        </DataContextProvider>
-      </ThemeProvider>
+          </DataContextProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
     </QueryClientProvider>
   );
 }

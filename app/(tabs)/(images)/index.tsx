@@ -16,9 +16,8 @@ const Images = () => {
       <Grid
         className="gap-2"
         _extra={{
-          className: "grid-cols-12",
-        }}
-      >
+          className: 'grid-cols-12',
+        }}>
         {categories.map((category: Category) => {
           return (
             <GridItem
@@ -26,13 +25,8 @@ const Images = () => {
               _extra={{
                 className: 'col-span-12 sm:col-span-6 md:col-span-4',
               }}
-              key={category.id}
-            >
-              <CategoryCard
-                id={category.id}
-                emoji={category.emoji}
-                text={category.name}
-              />
+              key={category.id}>
+              <CategoryCard id={category.id} emoji={category.emoji} text={category.name} />
             </GridItem>
           );
         })}
