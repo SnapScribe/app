@@ -40,6 +40,7 @@ const MainLayout = () => {
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
         <StatusBar translucent />
         <Stack>
+          <Stack.Screen name="onboarding" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
       </SafeAreaView>

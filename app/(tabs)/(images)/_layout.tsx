@@ -49,7 +49,8 @@ const ImagesLayout = () => {
         scrollEventThrottle={16}
         className="bg-background-0"
         bounces={false}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ flexGrow: 1 }}>
         <Slot />
         {/* consider it like a {children} */}
       </ScrollView>

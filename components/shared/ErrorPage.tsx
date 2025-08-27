@@ -1,5 +1,5 @@
 import { Center } from '../ui/center';
-import { Link } from '../ui/link';
+import { Link, LinkText } from '../ui/link';
 import { Text } from '../ui/text';
 import { View } from '../ui/view';
 import { VStack } from '../ui/vstack';
@@ -17,7 +17,7 @@ const ErrorPage = ({ error, description }: IErrorPage) => {
           <Text className="text-4xl font-bold text-white">{error}</Text>
           <Text className="text-2xl text-white">{description}</Text>
           <Link href="/" style={{ marginTop: 10 }}>
-            <Text className="text-xl text-white/80">Go home</Text>
+            <LinkText className="text-xl text-white/80">Go home</LinkText>
           </Link>
         </Center>
       </VStack>

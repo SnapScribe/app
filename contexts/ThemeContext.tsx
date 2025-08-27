@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useMemo, useCallback } from 'react';
 import { useColorScheme } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Define the shape of the context data
 type ThemeContextType = {
@@ -42,7 +41,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       // Determine current effective mode to decide the *next* manual mode
       const currentEffectiveMode = prevManualState || systemScheme || 'light';
       const theme = currentEffectiveMode === 'light' ? 'dark' : 'light';
-      AsyncStorage.setItem('theme', theme);
       return theme;
     });
   }, [systemScheme]);
