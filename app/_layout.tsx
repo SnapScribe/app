@@ -53,7 +53,7 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <ThemeProvider>
           <DataContextProvider>
-            <GestureHandlerRootView>
+            <GestureHandlerRootView style={{ flex: 1 }}>
               <MainLayout />
             </GestureHandlerRootView>
           </DataContextProvider>
