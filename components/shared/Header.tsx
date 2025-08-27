@@ -3,6 +3,7 @@ import { Heading } from '@/components/ui/heading';
 import { Text } from '@/components/ui/text';
 import { Icon } from '@/components/ui/icon';
 import { Pressable } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface HeaderButtonProps {
   text: string;
@@ -17,8 +18,9 @@ interface HeaderProps {
 }
 
 export const Header = ({ title, leftButton, rightButton }: HeaderProps) => {
+  const { top } = useSafeAreaInsets();
   return (
-    <HStack className="h-14 items-center px-4 mb-2 sticky top-0 z-10">
+    <HStack className="h-14 items-center px-4 mb-2 sticky top-0 z-10" style={{ paddingTop: top }}>
       {leftButton && (
         <Pressable
           onPress={leftButton.onClick}
