@@ -27,7 +27,20 @@
   "ios": {
     "icon": "./assets/images/app-icon-ios.png",
     "supportsTablet": true,
-    "bundleIdentifier": "xyz.snapscribe"
+    "bundleIdentifier": "xyz.snapscribe",
+    "privacyManifests": {
+      "NSPrivacyAccessedAPITypes": [
+        {
+          "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+          "NSPrivacyAccessedAPITypeReasons": [
+            "CA92.1"
+          ]
+        }
+      ]
+    },
+    "infoPlist": {
+      "ITSAppUsesNonExemptEncryption": false
+    }
   },
   "web": {
     "favicon": "./assets/images/app-icon-web-favicon.png",
@@ -45,13 +58,13 @@
         "backgroundColor": "#191015"
       }
     ],
-          [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow SnapScribeto access your camera",
-          "recordAudioAndroid": false
-        }
-      ],
+    [
+      "expo-camera",
+      {
+        "cameraPermission": "Allow SnapScribe to access your camera",
+        "recordAudioAndroid": false
+      }
+    ],
     [
       "react-native-edge-to-edge",
       {
@@ -68,6 +81,9 @@
   "extra": {
     "ignite": {
       "version": "11.1.2"
+    },
+    "eas": {
+      "projectId": "425a9220-781b-40fb-a1bb-5aaef78afdfc"
     }
   }
 }
