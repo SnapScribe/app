@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react"
+import { ComponentType } from "react"
 import {
   Pressable,
   PressableProps,
@@ -12,13 +12,13 @@ import {
   ModalProps,
   StyleSheet,
 } from "react-native"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 import { useAppTheme } from "@/theme/context"
 import { $styles } from "@/theme/styles"
 import type { ThemedStyle, ThemedStyleArray } from "@/theme/types"
 
 import { Text, TextProps } from "./Text"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 /**
  * Floating Action Button, styled in the spirit of Ignite components.
@@ -157,10 +157,7 @@ export function Fab(props: FabProps) {
         <View pointerEvents="box-none" style={StyleSheet.absoluteFill}>
           <View
             pointerEvents="box-none"
-            style={[
-              themed((t) => computePlacement(t, position, offset, insets)),
-              { zIndex: 1000 },
-            ]}
+            style={[themed((t) => computePlacement(t, position, offset, insets)), { zIndex: 1000 }]}
           >
             <Pressable
               style={({ pressed }) => [
@@ -210,13 +207,9 @@ export function Fab(props: FabProps) {
     >
       {(state) => (
         <>
-          {!!Icon && (
-            <Icon style={$iconStyle} pressableState={state} disabled={disabled} />
-          )}
+          {!!Icon && <Icon style={$iconStyle} pressableState={state} disabled={disabled} />}
 
-          {extended && (
-            <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)} />)
-          }
+          {extended && <Text tx={tx} text={text} txOptions={txOptions} style={$textStyle(state)} />}
         </>
       )}
     </Pressable>
@@ -272,30 +265,34 @@ const $fabViewPresets: Record<FabPreset, ThemedStyleArray<ViewStyle>> = {
       borderWidth: 1,
     }),
   ],
-  reversed: [
-    ({ colors }) => ({ backgroundColor: colors.palette.neutral800 }),
-  ],
+  reversed: [({ colors }) => ({ backgroundColor: colors.palette.neutral800 })],
 }
 
 const $fabTextPresets: Record<FabPreset, ThemedStyleArray<TextStyle>> = {
-  primary: [({ typography, colors }) => ({
-    fontSize: 16,
-    lineHeight: 20,
-    fontFamily: typography.primary.medium,
-    color: colors.palette.neutral100,
-  })],
-  surface: [({ typography, colors }) => ({
-    fontSize: 16,
-    lineHeight: 20,
-    fontFamily: typography.primary.medium,
-    color: colors.palette.neutral800,
-  })],
-  reversed: [({ typography, colors }) => ({
-    fontSize: 16,
-    lineHeight: 20,
-    fontFamily: typography.primary.medium,
-    color: colors.palette.neutral100,
-  })],
+  primary: [
+    ({ typography, colors }) => ({
+      fontSize: 16,
+      lineHeight: 20,
+      fontFamily: typography.primary.medium,
+      color: colors.palette.neutral100,
+    }),
+  ],
+  surface: [
+    ({ typography, colors }) => ({
+      fontSize: 16,
+      lineHeight: 20,
+      fontFamily: typography.primary.medium,
+      color: colors.palette.neutral800,
+    }),
+  ],
+  reversed: [
+    ({ typography, colors }) => ({
+      fontSize: 16,
+      lineHeight: 20,
+      fontFamily: typography.primary.medium,
+      color: colors.palette.neutral100,
+    }),
+  ],
 }
 
 const $pressedFabViewPresets: Record<FabPreset, ThemedStyle<ViewStyle>> = {

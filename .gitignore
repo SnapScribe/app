@@ -98,3 +98,4 @@ web-build/
 
 # Builds
 *.tar.gz
+.expo/

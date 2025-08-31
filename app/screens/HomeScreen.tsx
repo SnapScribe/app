@@ -46,7 +46,7 @@ export const HomeScreen: FC<TabScreenProps<"Home">> = (_props) => {
   )
 
   return (
-    <Screen preset="scroll" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
+    <Screen preset="fixed" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
       <Text preset="heading" tx="homeScreen:title" style={themed($title)} />
 
       {filteredWords.length > 0 && (
@@ -79,7 +79,7 @@ export const HomeScreen: FC<TabScreenProps<"Home">> = (_props) => {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={themed($buttonRow)}
+        contentContainerStyle={themed($buttonScroll)}
       >
         {sortedCategories.map((category, index) => (
           <Button
@@ -94,34 +94,42 @@ export const HomeScreen: FC<TabScreenProps<"Home">> = (_props) => {
         ))}
       </ScrollView>
 
-      {searchedWords.length > 0 ? (
-        <View style={[$styles.row, themed($categories)]}>
-          {searchedWords.map((word, index) => (
-            <Card
-              key={index}
-              preset="default"
-              style={themed($imageCard)} // remove padding and clip content
-              ContentComponent={
-                <View style={themed($cardContent)}>
-                  <AutoImage source={{ uri: word.image }} style={themed($cardImage)} />
-                  <View style={themed($overlay)}>
-                    <Text style={themed($overlayText)} weight="bold">
-                      {word.name}
-                    </Text>
+      <ScrollView
+        style={themed($fill)}
+        nestedScrollEnabled
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={themed($cardScroll)}
+        keyboardShouldPersistTaps="handled"
+      >
+        {searchedWords.length > 0 ? (
+          <View style={[$styles.row, themed($categories)]}>
+            {searchedWords.map((word, index) => (
+              <Card
+                key={index}
+                preset="default"
+                style={themed($imageCard)} // remove padding and clip content
+                ContentComponent={
+                  <View style={themed($cardContent)}>
+                    <AutoImage source={{ uri: word.image }} style={themed($cardImage)} />
+                    <View style={themed($overlay)}>
+                      <Text style={themed($overlayText)} weight="bold">
+                        {word.name}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              }
-            />
-          ))}
-        </View>
-      ) : (
-        <EmptyState
-          headingTx="homeScreen:emptyCard.title"
-          contentTx="homeScreen:emptyCard.subtitle"
-          buttonTx="homeScreen:emptyCard.button"
-          ButtonProps={{ preset: "reversed" }}
-        />
-      )}
+                }
+              />
+            ))}
+          </View>
+        ) : (
+          <EmptyState
+            headingTx="homeScreen:emptyCard.title"
+            contentTx="homeScreen:emptyCard.subtitle"
+            buttonTx="homeScreen:emptyCard.button"
+            ButtonProps={{ preset: "reversed" }}
+          />
+        )}
+      </ScrollView>
     </Screen>
   )
 }
@@ -133,7 +141,7 @@ const $title: ThemedStyle<TextStyle> = ({ spacing }) => ({
 const $categories: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   borderRadius: 8,
   padding: spacing.sm,
-  marginTop: spacing.xxxs,
+  marginTop: spacing.md,
   marginVertical: spacing.md,
   flexDirection: "column",
   alignItems: "stretch",
@@ -141,12 +149,12 @@ const $categories: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   gap: spacing.md,
 })
 
-const $buttonRow: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+const $buttonScroll: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   flexDirection: "row",
   alignItems: "center",
   gap: spacing.xs,
   paddingHorizontal: spacing.xs,
-  marginBottom: spacing.md,
+  marginBottom: spacing.xl,
 })
 
 const $chipButton: ThemedStyle<ViewStyle> = ({ spacing }) => ({
@@ -156,6 +164,7 @@ const $chipButton: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   alignSelf: "flex-start",
   minHeight: 0,
   minWidth: 0,
+  height: 35,
 })
 
 const $chipText: ThemedStyle<TextStyle> = () => ({
@@ -240,4 +249,11 @@ const $overlayText: ThemedStyle<TextStyle> = () => ({
   color: "white",
   alignSelf: "center",
   fontSize: 20,
+})
+
+const $fill: ThemedStyle<ViewStyle> = () => ({})
+
+const $cardScroll: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  flexDirection: "column",
+  paddingBottom: spacing.xxxl,
 })

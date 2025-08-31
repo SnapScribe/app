@@ -41,7 +41,6 @@ export const SettingsScreen: FC<TabScreenProps<"Settings">> = (_props) => {
 
       <ListItem topSeparator>
         <Text tx="settingsScreen:subscription" />
-        
       </ListItem>
 
       <ListItem
@@ -69,4 +68,3 @@ export const SettingsScreen: FC<TabScreenProps<"Settings">> = (_props) => {
 const $title: ThemedStyle<TextStyle> = ({ spacing }) => ({
   marginBottom: spacing.xxxl,
 })
-
