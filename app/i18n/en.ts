@@ -65,6 +65,7 @@ const en = {
   },
   learnScreen: {
     title: "Learn",
+    subtitle: "Word details",
     flashcards: "Flashcards",
     hangman: "Hangman",
   },
@@ -78,6 +79,10 @@ const en = {
     subscription: "Subscription status",
     legal: "ToS and Privacy Policy",
     code: "View code",
+    accessibility: {
+      publishLabel: "Published on {{date}}",
+      durationLabel: "Duration {{hours}}h {{minutes}}m {{seconds}}s",
+    },
   },
 }
 
