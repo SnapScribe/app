@@ -1,5 +1,5 @@
-import { useRef, useEffect } from "react"
-import { ScrollView, TextStyle, ViewStyle } from "react-native"
+import { useRef, useEffect, useState, useMemo } from "react"
+import { LayoutChangeEvent, ScrollView, TextStyle, ViewStyle } from "react-native"
 
 import { Category } from "types"
 
@@ -16,26 +16,43 @@ export const CategoriesFilter = ({
   selectedCategory: number
   setSelectedCategory: (id: number) => void
 }) => {
-  const { themed } = useAppTheme()
+  const { themed, theme } = useAppTheme()
   const scrollViewRef = useRef<ScrollView>(null)
+  const [buttonWidths, setButtonWidths] = useState<number[]>([])
+  const gap = theme.spacing.xs
+
+  const snapOffsets = useMemo(() => {
+    if (buttonWidths.length !== categories.length) return []
+    const offsets: number[] = []
+    let currentOffset = 0
+    for (let i = 0; i < buttonWidths.length; i++) {
+      offsets.push(currentOffset)
+      currentOffset += buttonWidths[i] + gap
+    }
+    return offsets
+  }, [buttonWidths, categories.length, gap])
 
   // Auto-scroll to selected category
   useEffect(() => {
-    if (scrollViewRef.current && categories.length > 0) {
+    if (scrollViewRef.current && snapOffsets.length === categories.length) {
       const selectedIndex = categories.findIndex((cat) => cat.id === selectedCategory)
       if (selectedIndex >= 0) {
-        // Calculate approximate position (button width + gap)
-        const buttonWidth = 100 // approximate button width
-        const gap = 8 // spacing.xs
-        const scrollPosition = Math.max(0, selectedIndex * (buttonWidth + gap) - 50)
-
         scrollViewRef.current.scrollTo({
-          x: scrollPosition,
+          x: snapOffsets[selectedIndex],
           animated: true,
         })
       }
     }
-  }, [selectedCategory, categories])
+  }, [selectedCategory, categories, snapOffsets])
+
+  const handleLayout = (index: number) => (event: LayoutChangeEvent) => {
+    const { width } = event.nativeEvent.layout
+    setButtonWidths((prev) => {
+      const next = [...prev]
+      next[index] = width
+      return next
+    })
+  }
 
   const handleCategoryPress = (categoryId: number) => {
     setSelectedCategory(categoryId)
@@ -52,14 +69,15 @@ export const CategoriesFilter = ({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={themed($buttonScroll)}
       decelerationRate="fast"
-      snapToInterval={108} // Approximate button width for better scrolling
+      snapToOffsets={snapOffsets}
     >
-      {categories.map((category) => {
+      {categories.map((category, index) => {
         const isSelected = selectedCategory === category.id
 
         return (
           <Button
             key={category.id} // Use id instead of index for better performance
+            onLayout={handleLayout(index)}
             preset={isSelected ? "reversed" : "default"}
             onPress={() => handleCategoryPress(category.id)}
             style={[themed($chipButton), isSelected && themed($selectedChipButton)]}
