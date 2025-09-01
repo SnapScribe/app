@@ -22,7 +22,7 @@ export type FlashCard = {
 
 export type Language = {
   id: number
-  name: string
-  iso639: string // 2-letter language code
+  label: string
+  value: string // 2-letter iso639 language code
   flag: string // emoji flag icon
 }

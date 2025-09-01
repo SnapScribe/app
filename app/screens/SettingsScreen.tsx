@@ -1,14 +1,15 @@
 import { FC } from "react"
-import { TextStyle } from "react-native"
+import { TextStyle, ViewStyle, View } from "react-native"
 
 import { ListItem } from "@/components/ListItem"
-import { Screen } from "@/components/Screen"
+import { PageWrapper } from "@/components/PageWrapper"
+import { Select } from "@/components/Select"
 import { Text } from "@/components/Text"
 import { Switch } from "@/components/Toggle/Switch"
+import { useData } from "@/context/DataContext"
 import { translate } from "@/i18n/translate"
 import { TabScreenProps } from "@/navigators/TabNavigator"
 import { useAppTheme } from "@/theme/context"
-import { $styles } from "@/theme/styles"
 import type { ThemedStyle } from "@/theme/types"
 import { openLinkInBrowser } from "@/utils/openLinkInBrowser"
 
@@ -19,6 +20,7 @@ export const SettingsScreen: FC<TabScreenProps<"Settings">> = (_props) => {
     themeContext,
     setThemeContextOverride,
   } = useAppTheme()
+  const { supportedLanguages, language, changeLanguage } = useData()
 
   const handleToggleTheme = () => {
     if (themeContext === "dark") setThemeContextOverride("light")
@@ -26,45 +28,88 @@ export const SettingsScreen: FC<TabScreenProps<"Settings">> = (_props) => {
   }
 
   return (
-    <Screen preset="fixed" contentContainerStyle={$styles.container} safeAreaEdges={["top"]}>
-      <Text preset="heading" tx="settingsScreen:title" style={themed($title)} />
-
-      <ListItem topSeparator>
+    <PageWrapper tx="settingsScreen:title">
+      {/* Appearance Section */}
+      <View style={themed($sectionContainer)}>
+        <Text style={themed($sectionHeader)} tx="settingsScreen:appearance" />
         <Switch
+          containerStyle={themed($switchContainer)}
+          labelStyle={themed($switchLabel)}
           value={themeContext === "dark"}
           onValueChange={() => handleToggleTheme()}
           labelTx="settingsScreen:themeSwitch"
           labelPosition="left"
           accessibilityLabel={translate("settingsScreen:themeSwitch")}
         />
-      </ListItem>
+      </View>
 
-      <ListItem topSeparator>
-        <Text tx="settingsScreen:subscription" />
-      </ListItem>
+      {/* Language Section */}
+      <View style={themed($sectionContainer)}>
+        <Text style={themed($sectionHeader)} tx="settingsScreen:language" />
+        <Select
+          label=""
+          placeholder={translate("settingsScreen:language")}
+          options={supportedLanguages}
+          value={language?.value}
+          onSelect={(option) => changeLanguage(option.value as string)}
+          helper=""
+        />
+      </View>
 
-      <ListItem
-        topSeparator
-        rightIcon="lock"
-        rightIconColor={colors.tintInactive}
-        onPress={() => openLinkInBrowser("https://github.com")}
-      >
-        <Text tx="settingsScreen:legal" />
-      </ListItem>
+      {/* Account Section */}
+      <View style={themed($sectionContainer)}>
+        <Text style={themed($sectionHeader)} tx="settingsScreen:account" />
+        <ListItem topSeparator>
+          <Text tx="settingsScreen:subscription" />
+        </ListItem>
+      </View>
 
-      <ListItem
-        topSeparator
-        bottomSeparator
-        rightIcon="github"
-        rightIconColor={colors.tintInactive}
-        onPress={() => openLinkInBrowser("https://github.com")}
-      >
-        <Text tx="settingsScreen:code" />
-      </ListItem>
-    </Screen>
+      {/* About Section */}
+      <View style={themed($sectionContainer)}>
+        <Text style={themed($sectionHeader)} tx="settingsScreen:about" />
+        <ListItem
+          topSeparator
+          rightIcon="lock"
+          rightIconColor={colors.tintInactive}
+          onPress={() => openLinkInBrowser("https://github.com")}
+        >
+          <Text tx="settingsScreen:legal" />
+        </ListItem>
+        <ListItem
+          bottomSeparator
+          rightIcon="github"
+          rightIconColor={colors.tintInactive}
+          onPress={() => openLinkInBrowser("https://github.com")}
+        >
+          <Text tx="settingsScreen:code" />
+        </ListItem>
+      </View>
+    </PageWrapper>
   )
 }
 
-const $title: ThemedStyle<TextStyle> = ({ spacing }) => ({
-  marginBottom: spacing.xxxl,
+const $sectionContainer: ThemedStyle<ViewStyle> = ({ spacing }) => ({
+  marginBottom: spacing.lg,
+})
+
+const $sectionHeader: ThemedStyle<TextStyle> = ({ spacing, colors }) => ({
+  fontSize: 14,
+  fontWeight: "600",
+  color: colors.textDim,
+  textTransform: "uppercase",
+  letterSpacing: 0.5,
+  marginBottom: spacing.xs,
+  marginHorizontal: spacing.md,
+})
+
+const $switchContainer: ThemedStyle<ViewStyle> = ({ spacing, colors }) => ({
+  backgroundColor: colors.palette.neutral100,
+  borderRadius: 12,
+  paddingHorizontal: spacing.md,
+  paddingVertical: spacing.sm,
+})
+
+const $switchLabel: ThemedStyle<TextStyle> = ({ colors }) => ({
+  fontSize: 16,
+  color: colors.text,
 })

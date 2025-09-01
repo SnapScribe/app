@@ -24,15 +24,16 @@ export const identifyWord = async ({
   image: string
   language: string
 }): Promise<Word> => {
-  return await new Promise(() => undefined)
+  console.log({ image, language })
+  return await new Promise(() => null)
 }
 
 export const mockCategories: Category[] = [
-  { id: 0, name: "All", emoji: "?" },
-  { id: 1, name: "Furniture", emoji: "🏠" },
-  { id: 2, name: "Nature", emoji: "🌿" },
-  { id: 3, name: "Food", emoji: "🍎" },
-  { id: 4, name: "Animals", emoji: "🦋" },
+  { id: 0, name: "All" },
+  { id: 1, name: "Furniture" },
+  { id: 2, name: "Nature" },
+  { id: 3, name: "Food" },
+  { id: 4, name: "Animals" },
 ]
 
 export const mockWords: Word[] = [
@@ -148,7 +149,7 @@ export const mockWords: Word[] = [
 ]
 
 export const mockSupportedLanguages: Language[] = [
-  { id: 1, iso639: "en", name: "English", flag: "🇺🇸" },
-  { id: 2, iso639: "es", name: "Spanish", flag: "🇪🇸" },
-  { id: 3, iso639: "it", name: "Italian", flag: "🇮🇹" },
+  { id: 1, value: "en", label: "English", flag: "🇺🇸" },
+  { id: 2, value: "es", label: "Spanish", flag: "🇪🇸" },
+  { id: 3, value: "it", label: "Italian", flag: "🇮🇹" },
 ]

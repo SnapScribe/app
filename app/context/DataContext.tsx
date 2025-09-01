@@ -3,7 +3,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 import { Category, Language, Word } from "types"
 
+import { translate } from "@/i18n/translate"
 import { getSupportedLanguages, getCategories, getWords, identifyWord } from "@/utils/server"
+
+import { useBilling } from "./BillingContext"
 
 interface DataContextProps {
   supportedLanguages: Language[]
@@ -12,7 +15,7 @@ interface DataContextProps {
   filteredWords: Word[]
   language?: Language
   changeLanguage: (iso: string) => void
-  processItem: (image: string) => Promise<void>
+  processItem: (image: string) => Promise<Word | undefined>
   loading: boolean
   error: Error | undefined
 }
@@ -20,6 +23,7 @@ interface DataContextProps {
 const DataContext = createContext<DataContextProps | undefined>(undefined)
 
 export const DataContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const { credits } = useBilling()
   const queryClient = useQueryClient()
 
   const {
@@ -87,13 +91,13 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
   })
 
   const changeLanguage = useCallback(
-    (iso: string) => {
-      const found = supportedLanguages.find((l) => l.iso639 === iso)
+    (val: string) => {
+      const found = supportedLanguages.find((l) => l.label === val || l.value === val)
       if (!found) {
-        showAlert("error", "Invalid language selected")
+        showAlert("error", translate("alerts:invalidLanguage"))
         return
       }
-      showAlert("info", `Language changed to ${found.name}`)
+      showAlert("info", `${translate("alerts:languageChanged")} ${found.label}`)
       setLanguage(found)
     },
     [showAlert, supportedLanguages],
@@ -105,9 +109,13 @@ export const DataContextProvider = ({ children }: { children: React.ReactNode })
         showAlert("error", "Select language first")
         return
       }
-      await mutation.mutateAsync({ image, language: language.iso639 })
+      if (!credits) {
+        showAlert("error", "Insufficient credits")
+        return
+      }
+      return await mutation.mutateAsync({ image, language: language.value })
     },
-    [showAlert, language],
+    [showAlert, language, credits],
   )
 
   const value = useMemo<DataContextProps>(

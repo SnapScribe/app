@@ -4,6 +4,7 @@ const en = {
     cancel: "Cancel",
     back: "Back",
     logOut: "Log Out",
+    loading: "Loading...",
   },
   welcomeScreen: {
     postscript:
@@ -26,7 +27,10 @@ const en = {
       button: "Let's try this again",
     },
   },
-
+  alerts: {
+    languageChanged: "Language changed to",
+    invalidLanguage: "Invalid language selected",
+  },
   errors: {
     invalidEmail: "Invalid email address.",
   },
@@ -53,6 +57,11 @@ const en = {
       subtitle: "Take a pic of an object to identify it",
       button: "Start now",
     },
+    noResultsCard: {
+      title: "No words found",
+      subtitle: "Try adjusting your search or category filter",
+      clearFilters: "Clear filters",
+    },
   },
   learnScreen: {
     title: "Learn",
@@ -61,7 +70,11 @@ const en = {
   },
   settingsScreen: {
     title: "Settings",
-    themeSwitch: "App theme",
+    themeSwitch: "Set app theme",
+    appearance: "Appearance",
+    language: "Language",
+    account: "Account",
+    about: "About",
     subscription: "Subscription status",
     legal: "ToS and Privacy Policy",
     code: "View code",

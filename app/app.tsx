@@ -26,6 +26,7 @@ import { KeyboardProvider } from "react-native-keyboard-controller"
 import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
 
 import { AuthProvider } from "./context/AuthContext"
+import { BillingContextProvider } from "./context/BillingContext"
 import { DataContextProvider } from "./context/DataContext"
 import { DeviceContextProvider } from "./context/DeviceContext"
 import { initI18n } from "./i18n"
@@ -103,13 +104,15 @@ export function App() {
           <DeviceContextProvider>
             <AuthProvider>
               <ThemeProvider>
-                <DataContextProvider>
-                  <AppNavigator
-                    linking={linking}
-                    initialState={initialNavigationState}
-                    onStateChange={onNavigationStateChange}
-                  />
-                </DataContextProvider>
+                <BillingContextProvider>
+                  <DataContextProvider>
+                    <AppNavigator
+                      linking={linking}
+                      initialState={initialNavigationState}
+                      onStateChange={onNavigationStateChange}
+                    />
+                  </DataContextProvider>
+                </BillingContextProvider>
               </ThemeProvider>
             </AuthProvider>
           </DeviceContextProvider>
