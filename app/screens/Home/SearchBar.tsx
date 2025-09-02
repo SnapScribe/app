@@ -30,7 +30,7 @@ export const SearchBar = ({
           <Button
             onPress={() => setQuery("")}
             accessibilityLabel="Clear search"
-            style={[themed($iconOnlyBtn), { opacity: query.trim().length > 0 ? 1 : 0 }]}
+            style={[themed($iconOnlyBtn), getIconOpacityStyle(query)]}
             textStyle={themed($iconOnlyText)}
             disabled={query.trim().length === 0}
           >
@@ -88,3 +88,7 @@ const $iconOnlyText: ThemedStyle<TextStyle> = () => ({
   fontSize: 12,
   lineHeight: 12,
 })
+
+const getIconOpacityStyle = (query: string): ViewStyle => {
+  return { opacity: query.trim().length > 0 ? 1 : 0 }
+}

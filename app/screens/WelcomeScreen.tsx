@@ -1,17 +1,15 @@
-import { FC } from "react"
+import { FC, useEffect, useMemo } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 
 import { Button } from "@/components/Button"
 import { Screen } from "@/components/Screen"
 import { Text } from "@/components/Text"
-import { useAuth } from "@/context/AuthContext"
 import { useDevice } from "@/context/DeviceContext"
 import { isRTL } from "@/i18n"
 import type { AppStackScreenProps } from "@/navigators/AppNavigator"
 import { useAppTheme } from "@/theme/context"
 import { $styles } from "@/theme/styles"
 import type { ThemedStyle } from "@/theme/types"
-import { useHeader } from "@/utils/useHeader"
 import { useSafeAreaInsetsStyle } from "@/utils/useSafeAreaInsetsStyle"
 
 const welcomeLogo = require("@assets/images/logo.png")
@@ -21,22 +19,17 @@ interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = function WelcomeScreen(_props) {
   const { themed, theme } = useAppTheme()
-  const { setFirstRun } = useDevice()
+  const { firstRun, setFirstRun } = useDevice()
   const { navigation } = _props
-  const { logout } = useAuth()
+  const isFirstRun = useMemo(() => firstRun === undefined, [firstRun])
 
-  function goNext() {
+  useEffect(() => {
+    if (!isFirstRun) navigation.replace("Index", { screen: "Home" })
+  }, [isFirstRun, navigation])
+
+  const goNext = () => {
     setFirstRun("false")
-    navigation.navigate("Index", { screen: "Home" })
   }
-
-  useHeader(
-    {
-      rightTx: "common:logOut",
-      onRightPress: logout,
-    },
-    [logout],
-  )
 
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 

@@ -99,3 +99,8 @@ web-build/
 # Builds
 *.tar.gz
 .expo/
+
+# Env
+.env
+.env.local
+.env.production

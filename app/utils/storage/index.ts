@@ -1,6 +1,9 @@
 import { MMKV } from "react-native-mmkv"
 
-export const storage = new MMKV()
+export const storage = new MMKV({
+  id: "snapscribe",
+  encryptionKey: process.env.EXPO_PUBLIC_STORAGE_KEY,
+})
 
 /**
  * Loads a string from storage.
